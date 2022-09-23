@@ -54,7 +54,7 @@ exports.run=(client,message,args)=>{
 		embed
 		.setTitle("Help page")
 		.setImage("https://wallpapercave.com/wp/wp2226861.jpg")
-		.addFields({name: "help", value: "Command to show other commands, do `b!help <commandname>` to get more info on each"});
+		.setDescription("Command to show other commands, do `b!help <commandname>` to get more info on each");
 		fieldVals.forEach((fieldVal)=>{
 			embed.addFields(fieldVal);
 		});
