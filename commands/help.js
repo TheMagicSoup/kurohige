@@ -1,4 +1,4 @@
-const { EmbedBuilder, AttachmentBuilder } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const fs = require("fs");
 
 exports.run=(client,message,args)=>{
@@ -35,7 +35,7 @@ exports.run=(client,message,args)=>{
 	
 	let embed=new EmbedBuilder()
 		.setColor(0x000000);
-			const author_img=new AttachmentBuilder("./assets/images/author_img.png");
+		
 	if(commands.includes(arg)){
 		
 		let index = commands.indexOf(arg);
@@ -51,11 +51,9 @@ exports.run=(client,message,args)=>{
 			{name: "Usage", value: usages[index]}
 		);	
 	} else {
-	
 		embed
 		.setTitle("Help page")
-		//.setAuthor({ name: "BLACKBEARD THE GREAT", iconURL: "attachments://author_img.png"})
-		.setImage("attachment://author_img.png")
+		.setImage("https://wallpapercave.com/wp/wp2226861.jpg")
 		.addFields({name: "help", value: "Command to show other commands, do `b!help <commandname>` to get more info on each"});
 		fieldVals.forEach((fieldVal)=>{
 			embed.addFields(fieldVal);
