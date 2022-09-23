@@ -3,3 +3,4 @@ exports.run = (client, message, args) => {
 	message.channel.send(`YOU CALLED ME A WHAT? A ${word}??? I'LL KILL YOU!`).catch(console.error);
 }
 exports.name="icalledyoua";
+exports.description="basic argument practice";
