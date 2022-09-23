@@ -1,5 +1,6 @@
 const { EmbedBuilder } = require("discord.js");
 const fs = require("fs");
+const { embedInit } = require("./modules/embedInit.js");
 
 exports.run=(client,message,args)=>{
 	
@@ -33,8 +34,8 @@ exports.run=(client,message,args)=>{
 		
 	});
 	
-	let embed=new EmbedBuilder()
-		.setColor(0x000000);
+	let embed=new EmbedBuilder();
+	embedInit(embed);
 		
 	if(commands.includes(arg)){
 		
