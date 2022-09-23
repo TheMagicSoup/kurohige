@@ -4,3 +4,4 @@ exports.run = (client, message, args) => {
 }
 exports.name="icalledyoua";
 exports.description="basic argument practice";
+exports.command_usage=("```\nb!icalledyou a <anything> \n```");

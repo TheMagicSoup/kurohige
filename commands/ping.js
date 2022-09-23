@@ -3,3 +3,4 @@ exports.run=(client,message,args)=>{
 }
 exports.name="ping";
 exports.description="Basic ping command";
+exports.command_usage=("```\nb!ping\n```");

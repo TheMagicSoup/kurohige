@@ -1,5 +1,6 @@
 const { EmbedBuilder } = require("discord.js");
 const { XMLHttpRequest } = require("xmlhttprequest");
+
 exports.run=(client,message,args)=>{
 	let arg=args[0];
 	if(!arg){
@@ -8,12 +9,14 @@ exports.run=(client,message,args)=>{
 	}
 	arg=arg.toLowerCase();
 	const link=`https://www.smashbros.com/assets_v2/img/fighter/${arg}/main.png`;
+
 	const isValid = (url) => {
 		let http=new XMLHttpRequest();
 		http.open("HEAD",url,false);
 		http.send();
 		return http.status!=404;
 	}
+
 	if(!isValid(link)){
 		message.channel.send("ERROR: TRY PUTTING A REAL SMASH CHARACTER IN! (underscores between words like \"pokemon_trainer\")\n```\nb!get_smashrender dark_samus\n```");
 		return;
@@ -29,3 +32,4 @@ exports.run=(client,message,args)=>{
 }
 exports.name="get_smashrender";
 exports.description="Command for getting Smash Bros. character renders\nTakes one argument, a character name";
+exports.command_usage=("```\nb!get_smashrender <character_name>\n```");

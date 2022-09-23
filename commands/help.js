@@ -1,39 +1,67 @@
-const { EmbedBuilder } = require("discord.js");
+const { EmbedBuilder, AttachmentBuilder } = require("discord.js");
 const fs = require("fs");
-const embField = require("./classes/embField.js");
+
 exports.run=(client,message,args)=>{
+	
+	let arg;
+	if(args[0])arg=args[0].toLowerCase()+".js";
+	
 	const commands=fs.readdirSync("./commands").filter(file=>file.endsWith(".js"));
-	let embed=new EmbedBuilder().setTitle("Help page");
-	let fields=[];
+	commands.splice(commands.indexOf("help.js"),1);
+	
+	let usages=[];
+	let fieldVals=[];
 	console.log(commands);
-	for(const file of commands){
-		let { name, description }=require(`./${file}`);
-		embed.addFields({name: name, value: description});
+	
+	commands.forEach((file)=>{
+		
+		let { 
+		name, 
+		description, 
+		command_usage
+		}=require(`./${file}`);
+		
+		let field={
+			name: name,
+			value: description,
+			inline: true
+		};
+		
+		fieldVals.push(field);
+		
+		usages.push(command_usage);
+		
+	});
+	
+	let embed=new EmbedBuilder()
+		.setColor(0x000000);
+			const author_img=new AttachmentBuilder("./assets/images/author_img.png");
+	if(commands.includes(arg)){
+		
+		let index = commands.indexOf(arg);
+		let fieldVal=fieldVals[index];
+		
+		fieldVal.inline=false;
+		
+		embed
+		.setTitle(fieldVal.name)
+		.setImage("https://images3.alphacoders.com/667/thumb-1920-667142.jpg")
+		.addFields(
+			fieldVal,
+			{name: "Usage", value: usages[index]}
+		);	
+	} else {
+	
+		embed
+		.setTitle("Help page")
+		//.setAuthor({ name: "BLACKBEARD THE GREAT", iconURL: "attachments://author_img.png"})
+		.setImage("attachment://author_img.png")
+		.addFields({name: "help", value: "Command to show other commands, do `b!help <commandname>` to get more info on each"});
+		fieldVals.forEach((fieldVal)=>{
+			embed.addFields(fieldVal);
+		});
 	}
 	message.channel.send({embeds: [embed]});
-	/*
-		const embed = new EmbedBuilder()
-		.setColor(0x000000)
-		.setImage(image)
-		.addFields(
-			{name: "Image link", value:`[CLICK HERE BITCH!](${image})`}
-		);
-
-	let categories=[];
-	for(const file of commands){
-		const commmandName=file.split(".")[0];
-		const command=require(`./commands/${file}`);
-		console.log(command.description);
-	}*/
 }
+
 exports.name="help";
-exports.description="Shows menu for commands";
-
-/*
-for(const file of commands){
-	const commandName=file.split(".")[0];
-	const command=require(`./commands/${file}`);
-	console.log(`Attempting to load command ${commandName}`);
-	client.commands.set(commandName,command);
-}
-*/

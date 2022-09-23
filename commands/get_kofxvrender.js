@@ -29,3 +29,4 @@ exports.run=(client,message,args)=>{
 }
 exports.name="get_kofxvrender";
 exports.description="Command for getting KOFXV character renders\nTakes one argument, a character name";
+exports.command_usage=("```\nb!get_kofxvrender <character name>\n```");

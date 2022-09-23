@@ -29,3 +29,4 @@ exports.run=(client,message,args)=>{
 }
 exports.name="get_thumbnail";
 exports.description="Command that pulls thumbnail for YouTube vid\nTakes one argument, a YT link";
+exports.command_usage=("```\nb!get_thumbnail <YouTube link>\n```");
