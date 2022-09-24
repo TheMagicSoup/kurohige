@@ -42,7 +42,7 @@ exports.run= async (client,message,args)=>{
 		embeds.push(embed);
 	}
 	
-	if(commands.includes(arg)){
+	if(arg&&commands.includes(arg)){
 		let index=commands.indexOf(arg);
 		let fieldVal=fieldVals[index];
 		fieldVal.inline=false;
@@ -64,8 +64,7 @@ exports.run= async (client,message,args)=>{
 		.setTitle("Help page")
 		.setImage("https://wallpapercave.com/wp/wp2226861.jpg")
 		.setDescription("Command to show other commands, do `b!help <commandname>` to get more info on each");
-		let set = i*6;
-		for(let j=set;j<=set+5&&j<fieldVals.length;j++){
+		for(let j=i*6;j<=(i*6)+5&&j<fieldVals.length;j++){
 			embed.addFields(fieldVals[j]);
 		}
 		embed.setFooter({text:`Page ${i+1} of ${embeds.length}`});
