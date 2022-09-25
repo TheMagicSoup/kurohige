@@ -1,28 +1,23 @@
+//Imports
 const owner = require("../config.json").ownerID;
-const motd = require("./modules/motd.json");
-const fs=require("fs");
-exports.run = (client, message, args) => {
-	let arg=args.join(" ");
-
-
-	if (arg) {
-		if (message.author.id === owner) {
-			let msg={
-				"message": arg
-			};
-			fs.writeFile("./commands/modules/motd.json",JSON.stringify(msg),(err)=>{
-				if(err){
-					throw(err);
-				}
-				console.log("SAVED!");
-			});
-			message.channel.send("Set the MotD to:\n```" + motd.message + "\n```");
-			return;
+const fs = require("fs");
+//Module properties
+module.exports = {
+	name: "motd",
+	description: "Sends out the message of the day!",
+	command_usage: "```\nb!motd\n```",
+	run: (client, message, args) => {
+		//Fetches message of the day
+		var motd_message;
+		try{
+			const jsonString=fs.readFileSync("./commands/json_files/motd.json","utf-8");
+			const data=JSON.parse(jsonString);
+			motd_message=data.motd;
+		} catch (error) {
+			console.log(error);
 		}
+		//Returns message of the day
+		message.channel.send("The message of the day is: \n```" + motd_message + "\n```");
+		return;
 	}
-	message.channel.send("The message of the day: \n```"+motd.message+"\n```");
-	return;
 }
-exports.name = "motd";
-exports.description = "Sends out the message of the day!\n Takes an optional argument: a new motd";
-exports.command_usage = "```\nb!motd <argument>\n```";
