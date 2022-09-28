@@ -1,16 +1,26 @@
+//Imports
 const embedInit = require("./modules/embedInit.js");
+//Defining module properties
 module.exports = {
     name: "eightball",
-    description: "Command that gives responses to questions like a magic eightball would!\nTakes one argument: a question.",
-    command_usage: "```\nb!eightball <question>\n```",
+    description: "Command that gives responses to questions like a magic eightball would!",
+    command_usage: "Takes one argument: a question.\n```\nb!eightball <question>\n```",
     run: (client, message, args)=>{
-        const arg=args.join(" ");
-        if(!arg||!arg.endsWith("?")){
+        //Stores all arguments separated by spaces in question
+        const question=args.join(" ");
+        //If the argument is empty or doesn't end in a question mark, return
+        if(!question||!question.endsWith("?")){
 			message.channel.send("YOU NEED TO ASK A QUESTION! (question must end with \"?\")");
 			return;
 		}
+        //Stores a random number between 0 and 19
         const randomNumber = Math.floor(Math.random()*20);
-        let response="";
+        //Defining response
+        var response;
+        /*
+        * 20 different responses, chosen based on random number, stores in response
+        * There are 10 positive responses, 5 indefinite responses and 5 negative responses
+         */
         switch(randomNumber){
             case 0:
                 response="It is certain";
@@ -76,12 +86,15 @@ module.exports = {
                 response="ERROR IN MAGIC!";
                 break;
         }
+        //Stores response as code block text
         response="```\n"+response+"\n```";
+        //Creates pre-set embed, adding a title and a field with the pre-defined response
         const embed=embedInit()
-            .setTitle(arg)
+            .setTitle(question)
             .addFields(
                 {name: "🎱 says...", value: response}
             );
+        //Returns mebed
         message.channel.send({embeds: [embed]});
         return;
     }

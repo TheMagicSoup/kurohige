@@ -2,7 +2,7 @@
 const fs=require("fs");
 const owner=require("../config.json").ownerID;
 module.exports = {
-    //Module properties
+    //Defining module properties
     name: "motd_whitelist",
     description: "Command that controls MOTD whitelist.",
     command_usage: "Takes 2 arguments, the action (0=remove, 1=add) and the user (@mention).\n```\nb!motd_whitelist <0/1> <@user>\n```",
@@ -20,7 +20,6 @@ module.exports = {
         }
         //Stores the JSON data
         let data;
-
         try{
             //Stores motd.json as 1 string in jsonString
             const jsonString = fs.readFileSync("./commands/json_files/motd.json","utf-8");

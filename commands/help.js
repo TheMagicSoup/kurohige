@@ -3,6 +3,7 @@ const { ButtonStyle } = require("discord.js");
 const fs = require("fs");
 const embedInit  = require("./modules/embedInit.js");
 const { ChannelPagination, NextPageButton, PreviousPageButton } = require("djs-button-pages");
+//Defining module properties
 module.exports = {
 	name: "help",
 	description: "Command helping the user with the bot's commands!",
@@ -64,7 +65,7 @@ module.exports = {
 			//Returns embed, ends process
 			message.channel.send({embeds: [embeds[0]]});
 			return
-		// This is called if the user provides an argument to b!help that aren't real commands
+		// This is called if the user provides an argument to b!help that isn't a real command
 		} else if(arg&&!(commands.includes(arg))){
 			message.channel.send("NOT A REAL COMMAND!\nRECOMMEND YOU DO `b!help` TO SEE WHAT IS REAL!");
 		}
