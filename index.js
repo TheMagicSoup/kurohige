@@ -6,10 +6,10 @@ const {
 	
 const client = new Client({
     intents: [
-	GatewayIntentBits.Guilds,
-	GatewayIntentBits.GuildMessages,
-	GatewayIntentBits.GuildMembers,
-	GatewayIntentBits.MessageContent
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.GuildMembers,
+		GatewayIntentBits.MessageContent
 	]
 });
 
@@ -32,7 +32,6 @@ for(const file of commands){
 	console.log(`Attempting to load command ${commandName}`);
 	client.commands.set(commandName,command);
 }
-
 client.on("ready", () => {
   console.log("BOT HAS STARTED! ZEHAHAHAHA");
 });

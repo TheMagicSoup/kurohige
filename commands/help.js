@@ -1,7 +1,7 @@
 //Imports
-const { EmbedBuilder, ButtonStyle } = require("discord.js");
+const { ButtonStyle } = require("discord.js");
 const fs = require("fs");
-const { embedInit } = require("./modules/embedInit.js");
+const embedInit  = require("./modules/embedInit.js");
 const { ChannelPagination, NextPageButton, PreviousPageButton } = require("djs-button-pages");
 module.exports = {
 	name: "help",
@@ -11,16 +11,15 @@ module.exports = {
 		//Creates arg, if there's an argument it's stored in arg 
 		let arg="";
 		if(args[0])arg=args[0].toLowerCase()+".js";
-		
 		//Creates list of strings holding each filename in commands, filters to only store elements ending in ".js"
 		const commands=fs.readdirSync("./commands").filter(file=>file.endsWith(".js"));
 		//Omits "help.js" from list (I'm giving it it's own field)
 		commands.splice(commands.indexOf("help.js"),1);
 		/*
-		Creates array for:
-		embeds,
-		field values (so I can do .addFields(fieldVal) instead of making a new object),
-		and usages (I can't store them in the fieldVals array because it's not an accepted property for .addFields())
+		* Creates array for:
+		* embeds,
+		* field values (so I can do .addFields(fieldVal) instead of making a new object),
+		* and usages (I can't store them in the fieldVals array because it's not an accepted property for .addFields())
 		*/
 		let embeds=[];
 		let usages=[];
@@ -32,31 +31,17 @@ module.exports = {
 		console.log(commands);
 		//For-loop, iterates through commands[] and makes embed fields for each one, pushes command_usage properties to usages[]
 		commands.forEach((file)=>{
-			
-			let { 
-			name, 
-			description, 
-			command_usage
-			}=require(`./${file}`);
-			
-			let field={
-				name: name,
-				value: description,
-				inline: true
-			};
-			
-			fieldVals.push(field);
-			
+			let { name, description, command_usage }=require(`./${file}`);
+			let field={ name: name, value: description, inline: true };
+			fieldVals.push(field);			
 			usages.push(command_usage);
 			
 		});
 		//Sets up array of embeds, initialises each embed for format I layed out in embedInit.js
 		for(let i=0;i<embArrLen;i++){
-			let embed=new EmbedBuilder().setTitle("Help page");
-			embedInit(embed);
+			let embed=embedInit().setTitle("Help page");
 			embeds.push(embed);
 		}
-		
 		//If the user did b!help <command name>
 		if(commands.includes(arg)){
 			//Fetches index of argument in commands[], as it'll be the index of the element relating to that command in all arrays

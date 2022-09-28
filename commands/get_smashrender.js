@@ -1,5 +1,5 @@
-const { EmbedBuilder } = require("discord.js");
-const { XMLHttpRequest } = require("xmlhttprequest");
+const embedInit = require("./modules/embedInit.js");
+const isGoodLink = require("./modules/isGoodLink.js");
 module.exports={
 	name: "get_smashrender",
 	description: "Command for getting Smash Bros. character renders.",
@@ -13,19 +13,11 @@ module.exports={
 		arg=arg.toLowerCase();
 		const link=`https://www.smashbros.com/assets_v2/img/fighter/${arg}/main.png`;
 
-		const isValid = (url) => {
-			let http=new XMLHttpRequest();
-			http.open("HEAD",url,false);
-			http.send();
-			return http.status!=404;
-		}
-
-		if(!isValid(link)){
-			message.channel.send("ERROR: TRY PUTTING A REAL SMASH CHARACTER IN! (use the full character name, like banjo AND kazooie)\n```\nb!get_smashrender banjo and kazooie\n```");
+		if(!isGoodLink(link)){
+			message.channel.send("Bad link!\nERROR: TRY PUTTING A REAL SMASH CHARACTER IN! (use the full character name, like banjo AND kazooie)\n```\nb!get_smashrender banjo and kazooie\n```");
 			return;
 		}
-		const embed=new EmbedBuilder()
-			.setColor(0x000000)
+		const embed=embedInit()
 			.setImage(link)
 			.setTitle(`Render for: "${arg}"`) 
 			.addFields(

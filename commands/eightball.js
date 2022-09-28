@@ -1,16 +1,14 @@
-const { EmbedBuilder } = require("discord.js");
-const { embedInit } = require("./modules/embedInit.js");
+const embedInit = require("./modules/embedInit.js");
 module.exports = {
     name: "eightball",
     description: "Command that gives responses to questions like a magic eightball would!\nTakes one argument: a question.",
     command_usage: "```\nb!eightball <question>\n```",
     run: (client, message, args)=>{
-        let arg=args.join(" ");
-        if(!arg){
-            message.channel.send("You have to ask a question first!\n```\nb! Do I get rich?\n```")
-        }
-        const embed=new EmbedBuilder();
-        embedInit(embed);
+        const arg=args.join(" ");
+        if(!arg||!arg.endsWith("?")){
+			message.channel.send("YOU NEED TO ASK A QUESTION! (question must end with \"?\")");
+			return;
+		}
         const randomNumber = Math.floor(Math.random()*20);
         let response="";
         switch(randomNumber){
@@ -79,11 +77,12 @@ module.exports = {
                 break;
         }
         response="```\n"+response+"\n```";
-        embed
+        const embed=embedInit()
             .setTitle(arg)
             .addFields(
                 {name: "🎱 says...", value: response}
             );
         message.channel.send({embeds: [embed]});
+        return;
     }
 }

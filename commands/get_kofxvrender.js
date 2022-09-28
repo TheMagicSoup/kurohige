@@ -1,5 +1,5 @@
-const { EmbedBuilder } = require("discord.js");
-const { XMLHttpRequest } = require("xmlhttprequest");
+const embedInit = require("./modules/embedInit.js");
+const isGoodLink = require("./modules/isGoodLink.js");
 module.exports = {
 	name: "get_kofxvrender",
 	description: "Command for getting KOFXV character renders.",
@@ -12,18 +12,11 @@ module.exports = {
 		}
 		arg=arg.toLowerCase();
 		const link=`https://www.snk-corp.co.jp/us/games/kof-xv/characters/img/character_${arg}.png`;
-		const isValid = (url) => {
-			let http=new XMLHttpRequest();
-			http.open("HEAD",url,false);
-			http.send();
-			return http.status!=404;
-		}
-		if(!isValid(link)){
+		if(!isGoodLink(link)){
 			message.channel.send("ERROR: TRY PUTTING A REAL KOFXV CHARACTER IN!");
 			return;
 		}
-		const embed=new EmbedBuilder()
-			.setColor(0x000000)
+		const embed=embedInit()
 			.setImage(link)
 			.setTitle(`Render for: "${arg}"`)
 			.addFields(
