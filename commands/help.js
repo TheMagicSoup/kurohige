@@ -33,9 +33,9 @@ module.exports = {
 		//For-loop, iterates through commands[] and makes embed fields for each one, pushes command_usage properties to usages[]
 		commands.forEach((file)=>{
 			let { name, description, command_usage }=require(`./${file}`);
-			let field={ name: name, value: description, inline: true };
+			let field={ name: name??"NO NAME PROVIDED", value: description??"NO DESCRIPTION PROVIDED", inline: true };
 			fieldVals.push(field);			
-			usages.push(command_usage);
+			usages.push(command_usage??"NO COMMAND_USAGE PROVIDED");
 			
 		});
 		//Sets up array of embeds, initialises each embed for format I layed out in embedInit.js
