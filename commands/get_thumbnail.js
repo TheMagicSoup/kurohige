@@ -1,5 +1,5 @@
 //Imports
-const ytdl=require("ytdl-core");
+const { validateURL, getURLVideoID, getInfo }=require("ytdl-core");
 const embedInit = require("./modules/embedInit.js");
 //Defining module properties
 module.exports={
@@ -15,12 +15,12 @@ module.exports={
 		//Stores argument in arg
 		const arg=args[0];
 		//If it's not a legit YouTube URL, return
-		if(!ytdl.validateURL(arg)){
+		if(!validateURL(arg)){
 			message.channel.send("BAD LINK! DID YOU EVEN TRY USING A REAL LINK?");
 			return;
 		}
 		//Stores YouTube video ID in id
-		const id=ytdl.getURLVideoID(arg);
+		const id=getURLVideoID(arg);
 		//Stores thumbnail image in image
 		const image=`https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
 		//Creates preset embed, adds thumbnail as image and link to the image
@@ -30,7 +30,7 @@ module.exports={
 				{name: "Image link", value:`[CLICK HERE BITCH!](${image})`}
 			);
 		//Sets embed title as video title, returns embed
-		ytdl.getInfo(arg).then(info => {
+		getInfo(arg).then(info => {
 			let title=info.videoDetails.title;
 			embed.setTitle(title);
 			message.channel.send({embeds: [embed]});

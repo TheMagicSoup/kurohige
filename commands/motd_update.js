@@ -1,5 +1,6 @@
 //Imports
-const fs=require("fs");
+const isWhitelisted=require("./modules/isWhitelisted.js");
+const { readFileSync, writeFile } = require("fs");
 //Defining module properties
 module.exports={
     name: "motd_update",
@@ -18,16 +19,14 @@ module.exports={
         //try-catch block
         try{
             //Stores motd.json as an Object in data
-            const jsonString=fs.readFileSync("./commands/json_files/motd.json","utf-8");
+            const jsonString=readFileSync("./commands/json_files/motd.json","utf-8");
             data=JSON.parse(jsonString);
         }catch(err){
             //If there's an error, log it
             console.log(err);
         }
-        //Stores stringified version of motd.json's whitelist in whitelist
-        const whitelist=JSON.stringify(data.whitelist);
         //If whitelist doesn't include author's id, return
-        if(!(whitelist.includes(message.author.id))){
+        if(!isWhitelisted(message.author.id)){
             message.channel.send("YOU CAN'T CHANGE ANYTHING! YOU'RE NOT WHITELISTED!");
             return;
         } else if(!arg){
@@ -38,7 +37,7 @@ module.exports={
         //Otherwise, store argument as data's motd property
             data.motd=arg;
             //Stringify data with pretty print, copy contents of data into motd.json
-            fs.writeFile("./commands/json_files/motd.json",JSON.stringify(data,null,4),(err)=>{
+            writeFile("./commands/json_files/motd.json",JSON.stringify(data,null,4),(err)=>{
                 //Throws error if one occurs, else logs that data has been successfully saved
                 if(err)throw err;
                 console.log("SAVED!");

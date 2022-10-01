@@ -94,7 +94,7 @@ module.exports = {
             .addFields(
                 {name: "🎱 says...", value: response}
             );
-        //Returns mebed
+        //Returns embed
         message.channel.send({embeds: [embed]});
         return;
     }

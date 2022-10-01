@@ -1,15 +1,16 @@
 //Imports
 const embedInit=require("./modules/embedInit.js");
 const isGoodLink=require("./modules/isGoodLink.js");
+const isDigit=require("./modules/isDigit.js");
 //Defining module properties
 module.exports={
     name: "get_opepisode",
-    description: "Fetches a desired one piece episode!",
+    description: "Fetches a desired One Piece episode!",
     command_usage: "Takes one argument, an episode number\n```\nb!get_opepisode <episode number>\n```",
     run: (client, message, args) => {
         //If the argument isn't a digit, return
-        if(!(/^[0-9]+$/.test(args[0]))){
-            message.channel.send("ENTER A REAL NUMBER!");
+        if(!isDigit(args[0])){
+            message.channel.send("ENTER A REAL EPISODE NUMBER!");
             return;
         }
         //Stores episode number in arg

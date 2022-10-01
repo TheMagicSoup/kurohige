@@ -1,6 +1,6 @@
 //Imports
 const { ButtonStyle } = require("discord.js");
-const fs = require("fs");
+const { readdirSync } = require("fs");
 const embedInit  = require("./modules/embedInit.js");
 const { ChannelPagination, NextPageButton, PreviousPageButton } = require("djs-button-pages");
 //Defining module properties
@@ -13,7 +13,7 @@ module.exports = {
 		let arg="";
 		if(args[0])arg=args[0].toLowerCase()+".js";
 		//Creates list of strings holding each filename in commands, filters to only store elements ending in ".js"
-		const commands=fs.readdirSync("./commands").filter(file=>file.endsWith(".js"));
+		const commands=readdirSync("./commands").filter(file=>file.endsWith(".js"));
 		//Omits "help.js" from list (I'm giving it it's own field)
 		commands.splice(commands.indexOf("help.js"),1);
 		/*
@@ -69,7 +69,7 @@ module.exports = {
 		} else if(arg&&!(commands.includes(arg))){
 			message.channel.send("NOT A REAL COMMAND!\nRECOMMEND YOU DO `b!help` TO SEE WHAT IS REAL!");
 		}
-		//Iterates through embeds (note: I couldn't do a for-each loop like for(const element in embeds) because "elements" would become a string in the array
+		//Iterates through embeds (note: I couldn't do a for-each loop like for(const element in embeds) because "element" would become a string in the array
 		for(let i=0;i<embArrLen;i++){
 			//Stores current element in it's own var for easy writing
 			let embed=embeds[i];
@@ -77,15 +77,15 @@ module.exports = {
 			embed
 			.setImage("https://wallpapercave.com/wp/wp2226861.jpg")
 			.setDescription("Command to show other commands, do `b!help <commandname>` to get more info on each");
-			/*Sets field-defining for-loop to change like the following:
-				i=0, jDef=0, jCond=5
-				i=1, jDef=6, jCond=11
-				i=2, jDef=12, jCond=17 etc.
-			then pulling that element from fieldVals[] until it reaches that list's limit
-			*/
+			/**Sets field-defining for-loop to change like the following:
+			 *	i=0, jDef=0, jCond=j<6
+			 *	i=1, jDef=6, jCond=j<12
+			 *	i=2, jDef=12, jCond=j<18 etc.
+			 *	then pulling that element from fieldVals[] until it reaches that list's limit
+			 */
 			const jDef=i*fieldsInEmb;
-			const jCond=jDef+(fieldsInEmb-1);
-			for(let j=jDef;j<=jCond&&j<fieldVals.length;j++){
+			const jCond=jDef+fieldsInEmb;
+			for(let j=jDef;j<jCond&&j<fieldVals.length;j++){
 				embed.addFields(fieldVals[j]);
 			}
 			//Sets page number, set-up for pagination
@@ -102,6 +102,10 @@ module.exports = {
 			.setEmbeds(embeds)
 			.setTime(60000);
 		//Sends paginated embed, awaits user input
-		await pagination.send(message.channel);
+		try{
+			await pagination.send(message.channel);
+		} catch (err) {
+			console.log("MESSAGE HAS BEEN ERADICATED! AWAITING FINISHED! SORRY!");
+		}
 	}
 }

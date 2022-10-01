@@ -1,5 +1,6 @@
 //Imports
 const owner=require("../config.json").ownerID;
+//Defining module properties
 module.exports = {
 	name: "zaki",
 	description: "OWNER ONLY:\nGet the bot's thoughts on ME! THE OWNER! I'M TALKING! ME!",

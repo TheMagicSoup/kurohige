@@ -1,6 +1,5 @@
 //Imports
-const owner = require("../config.json").ownerID;
-const fs = require("fs");
+const { readFileSync } = require("fs");
 //Defining module properties
 module.exports = {
 	name: "motd",
@@ -12,7 +11,7 @@ module.exports = {
 		//try-catch block
 		try{
 			//Stores contents of motd.json as string in jsonString (encoded in utf-8 to make it usable)
-			const jsonString=fs.readFileSync("./commands/json_files/motd.json","utf-8");
+			const jsonString=readFileSync("./commands/json_files/motd.json","utf-8");
 			//Stores parsed jsonString as Object in data
 			const data=JSON.parse(jsonString);
 			//Stores motd property in motd_message
