@@ -3,9 +3,10 @@ const { validateURL, getURLVideoID, getInfo }=require("ytdl-core");
 const embedInit = require("./modules/embedInit.js");
 //Defining module properties
 module.exports={
-	name: "get_thumbnail",
+	name: "get-thumbnail",
 	description: "Command that pulls thumbnail for YouTube vid.",
-	command_usage: "Takes one argument, a YT link\n```\nb!get_thumbnail <YouTube link>\n```",
+	aliases: ["fetch-thumbnail","thumbnail"],
+	command_usage: "Takes one argument, a YT link\n```\nb!get-thumbnail <YouTube link>\n```",
 	run: (client,message,args)=>{
 		//If there's no argument provided, return
 		if(!args[0]){

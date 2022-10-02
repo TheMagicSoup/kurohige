@@ -4,6 +4,7 @@ const { readFileSync } = require("fs");
 module.exports = {
     name: "tag",
     description: "Posts tagged message",
+    aliases: ["post_tag"],
     command_usage: "Takes one argument, a tag\n```\nb!tag <tag name>\n```",
     run: (client, message, args) => {
         //If no argument is provided, return
@@ -11,8 +12,8 @@ module.exports = {
             message.channel.send("YOU DIDN'T ASK FOR A SPECIFIC TAG!");
             return;
         }
-        //Stores arguments separated by spaces & converted to lowercase in arg
-        const arg=args.join(" ").toLowerCase();
+        //Stores arguments separated by spaces & converted to lowercase in tag
+        const tag=args.join(" ").toLowerCase();
         //Defines jsonData
         var jsonData;
         try{
@@ -25,12 +26,12 @@ module.exports = {
             console.log(error);
         }
         //If the tag provided doesn't exist, return
-        if(!JSON.stringify(jsonData).includes(arg)){
+        if(!jsonData[tag]){
             message.channel.send("THAT TAG HASN'T BEEN DEFINED!");
             return;
         }
         //Stores that tag's message in response
-        const response=jsonData[arg].message;
+        const response=jsonData[tag].message;
         //Returns response
         message.channel.send(response);
     }

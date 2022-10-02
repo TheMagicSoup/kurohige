@@ -7,6 +7,7 @@ const { ChannelPagination, NextPageButton, PreviousPageButton } = require("djs-b
 module.exports = {
 	name: "help",
 	description: "Command helping the user with the bot's commands!",
+	aliases: ["commands"],
 	command_usage: "```\nb!help or b!help <command name>\n```",
 	run: async (client, message, args) => {
 		//Creates arg, if there's an argument it's stored in arg 
@@ -24,6 +25,7 @@ module.exports = {
 		*/
 		let embeds=[];
 		let usages=[];
+		let alias=[];
 		let fieldVals=[];
 		//Stores how many fields describing commands will populate each embed
 		const fieldsInEmb=6;
@@ -32,11 +34,11 @@ module.exports = {
 		console.log(commands);
 		//For-loop, iterates through commands[] and makes embed fields for each one, pushes command_usage properties to usages[]
 		commands.forEach((file)=>{
-			let { name, description, command_usage }=require(`./${file}`);
+			let { name, description, aliases, command_usage }=require(`./${file}`);
 			let field={ name: name??"NO NAME PROVIDED", value: description??"NO DESCRIPTION PROVIDED", inline: true };
 			fieldVals.push(field);			
 			usages.push(command_usage??"NO COMMAND_USAGE PROVIDED");
-			
+			alias.push(aliases??"NO ALIAS PROVIDED!");
 		});
 		//Sets up array of embeds, initialises each embed for format I layed out in embedInit.js
 		for(let i=0;i<embArrLen;i++){
@@ -46,9 +48,11 @@ module.exports = {
 		//If the user did b!help <command name>
 		if(commands.includes(arg)){
 			//Fetches index of argument in commands[], as it'll be the index of the element relating to that command in all arrays
-			let index=commands.indexOf(arg);
+			const index=commands.indexOf(arg);
 			//Fetches & stores that command's respective field value
-			let fieldVal=fieldVals[index];
+			const fieldVal=fieldVals[index];
+			//Fetches & stores that command's aliases
+			const aliasesVal=alias[index].join(", ");
 			//I want the inline to be false, as I want these fields to completely occupy their respective embeds
 			fieldVal.inline=false;
 			//Just using the first embed element as it's only returning an embed relating to that specific command
@@ -60,6 +64,7 @@ module.exports = {
 				//Makes 2 fields for the embed, one storing the name and description of the export & another for storing the usage
 				.addFields(
 					fieldVal,
+					{name: "Aliases",value:aliasesVal},
 					{name: "Usage", value: usages[index]}
 				);
 			//Returns embed, ends process

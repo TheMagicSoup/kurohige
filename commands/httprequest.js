@@ -4,6 +4,7 @@ const { XMLHttpRequest }=require("xmlhttprequest");
 module.exports = {
     name: "httprequest",
     description: "Returns status of HTTP request",
+    aliases: ["httpstatus"],
     command_usage: "Takes one argument, a URL\n```\nb!httprequest <url>\n```",
     run: (client, message, args) => {
         //If there's no argument provided, return

@@ -4,6 +4,7 @@ const owner=require("../config.json").ownerID;
 module.exports = {
 	name: "zaki",
 	description: "OWNER ONLY:\nGet the bot's thoughts on ME! THE OWNER! I'M TALKING! ME!",
+	aliases: ["goat","creator"],
 	command_usage: "```\nb!zaki\n```",
 	run: (client, message, args)=>{
 		//If I didn't make this command, return

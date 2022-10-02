@@ -1,8 +1,10 @@
 const { readFileSync, writeFile } = require("fs");
 const owner=require("../config.json").ownerID;
+const isWhitelisted=require("./modules/isWhitelisted.js");
 module.exports={
     name: "whitelist",
     description: "Command that manipulates the whitelist for updating tags and the MotD",
+    aliases: ["wl","u-whitelist","whitelist-u"],
     command_usage: "Takes 2 arguments, the action (0=remove, 1=add) and the user (@mention).\n```\nb!whitelist <0/1> <@user>\n```",
     run: (client, message, args) => {
         if(message.author.id!==owner)return;
@@ -25,7 +27,7 @@ module.exports={
         };
 
         if(action==1){
-            if(JSON.stringify(data.whitelist).includes(user.id)){
+            if(isWhitelisted(user.id)){
                 message.channel.send("THAT USER IS ALREADY WHITELISTED!");
                 return;
             }
@@ -36,7 +38,7 @@ module.exports={
                 console.log("element got pushed!");
             });
         } else {
-            if(!JSON.stringify(data.whitelist).includes(user.id)){
+            if(!isWhitelisted(user.id)){
                 message.channel.send("THAT USER ISN'T WHITELISTED!");
                 return;
             }

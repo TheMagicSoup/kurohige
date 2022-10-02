@@ -4,6 +4,7 @@ const { readFileSync } = require("fs");
 module.exports = {
 	name: "motd",
 	description: "Sends out the message of the day!",
+	aliases: ["messageoftheday"],
 	command_usage: "```\nb!motd\n```",
 	run: (client, message, args) => {
 		//Defines motd_message

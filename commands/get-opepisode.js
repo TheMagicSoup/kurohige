@@ -4,9 +4,10 @@ const isGoodLink=require("./modules/isGoodLink.js");
 const isDigit=require("./modules/isDigit.js");
 //Defining module properties
 module.exports={
-    name: "get_opepisode",
+    name: "get-opepisode",
     description: "Fetches a desired One Piece episode!",
-    command_usage: "Takes one argument, an episode number\n```\nb!get_opepisode <episode number>\n```",
+    aliases: ["fetch-opepisode","opepisode"],
+    command_usage: "Takes one argument, an episode number\n```\nb!get-opepisode <episode number>\n```",
     run: (client, message, args) => {
         //If the argument isn't a digit, return
         if(!isDigit(args[0])){

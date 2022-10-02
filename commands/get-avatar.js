@@ -2,9 +2,10 @@
 const embedInit = require("./modules/embedInit.js");
 //Defining module properties
 module.exports = {
-	name: "get_avatar",
+	name: "get-avatar",
 	description: "Gets avatar of target, or command caller if there is none.",
-	command_usage: "Takes one argument - a user.\n```\nb!get_avatar <@user>\n```",
+	aliases: ["fetch_avatar","avatar"],
+	command_usage: "Takes one argument - a user.\n```\nb!get-avatar <@user>\n```",
 	run: (client, message, args)=>{
 		/*
 		* Stores targed user in user, if there's no user mentioned

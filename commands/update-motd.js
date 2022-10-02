@@ -3,10 +3,12 @@ const isWhitelisted=require("./modules/isWhitelisted.js");
 const { readFileSync, writeFile } = require("fs");
 //Defining module properties
 module.exports={
-    name: "motd_update",
+    name: "update-motd",
     description: "Changes the message of the day!",
-    usage: "Takes one argument: a new message\n```\nb!motd_update <new message>\n```",
+    aliases: ["updatemotd",",u-motd",",motd-u"],
+    usage: "Takes one argument: a new message\n```\nb!update-motd <new message>\n```",
     run: (client, message, args) => {
+        console.log(isWhitelisted(message.author.id));
         //Stores arguments separated by spaces in arg
         let arg=args.join(" ");
         //If there's an @mention in arg, return

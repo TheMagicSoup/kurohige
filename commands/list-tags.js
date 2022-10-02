@@ -5,41 +5,42 @@ const { ChannelPagination, NextPageButton, PreviousPageButton } = require("djs-b
 const embedInit = require("./modules/embedInit.js");
 //Defining module properties
 module.exports = {
-    name: "show_whitelist",
+    name: "list-tags",
     description: "Posts all the currently stored tags",
-    command_usage: "```\nb!show_whitelist\n```",
+    aliases: ["show-tags","tags-list","list-tags","tags"],
+    command_usage: "```\nb!list-tags\n```",
     run: async (client, message, args) => {
-        //Defining goldiesList, embeds & const entriesInEmb
-        var goldiesList = [];
-        var embeds = [];
-        const entriesInEmb = 10;
-        try {
-            //Storing contents of whitelist.json in jsonString as a string
-            const jsonString = readFileSync("./commands/json_files/whitelist.json", "utf-8");
-            //Parsing jsonString and storing the returned Object in jsonData
-            const jsonData = JSON.parse(jsonString);
-            //For each ID in the whitelist, store the respective user's tag in goldiesList
-            for (let i=0;i<jsonData.whitelist.length;i++) {
-                const userID = jsonData.whitelist[i].id;
-                const user= await client.users.fetch(userID).catch(()=>null);
-                const userTag=user.tag;
-                goldiesList.push("⮊" + userTag);
-            }
-        } catch (error) {
-            //Log error if one occurs
+        //Defining tagsList, embeds & const entriesInEmb
+        var tagsList=[];
+        var embeds=[];
+        const entriesInEmb=10;
+        try{
+            //Storing contents of tags.json in jsonString
+            const jsonString=readFileSync("./commands/json_files/tags.json","utf-8");
+            //Parsing jsonString and storing the returned Object in jsoNData
+            const jsonData=JSON.parse(jsonString);
+            //Stores each key in jsonData in jsonKeys
+            var jsonKeys=Object.keys(jsonData);
+            //For each element in jsonKeys, add special indent character before start of string & push to tagsList[]
+            jsonKeys.forEach((key)=>{
+                key="⮊"+key;
+                tagsList.push(key);
+            });
+        }catch(error){
+            //Log error if it occurs
             console.log(error);
         }
         //Stores length of embeds[] in embArrLen
-        const embArrLen = Math.ceil(goldiesList.length / entriesInEmb);
-        //Iterates through embeds[]
+        const embArrLen=Math.ceil(tagsList.length/entriesInEmb);
+        //Embed-defining for loop
         for(let i=0;i<embArrLen;i++){
             //Creates pre-defined embed with title, pushes to embeds[]
-            const embed = embedInit()
-            .setTitle("WHITELISTED USERS");
-            embeds.push(embed);
+            const embed=embedInit()
+                .setTitle("LIST OF TAGS");
+                embeds.push(embed);
         }
-        //Iterates through embeds[]
-        for (let i = 0; i < embArrLen; i++) {
+        //Embed-completing loop
+        for(let i=0;i<embArrLen;i++){
             //Stores current element in embed
             let embed=embeds[i];
             /**Sets string-expanding for-loop to change like the following:
@@ -48,15 +49,15 @@ module.exports = {
              * i=2, jDef=40, jCond=j<60 etc.
              * then pulling that element from fieldVals[] until it reaches that list's limit
              */ 
-            const jDef = i * entriesInEmb;
-            const jCond = jDef + entriesInEmb;
+            const jDef=i*entriesInEmb;
+            const jCond=jDef+entriesInEmb;
             var desc="";
-            for (let j = jDef; j < jCond && j < goldiesList.length; j++) {
-                desc += goldiesList[j] + "\n";
+            for (let j=jDef;j<jCond && j<tagsList.length;j++){
+                desc+=tagsList[j]+"\n";
             }
             embed.setDescription(desc)
             //Sets page number, set-up for pagination
-            .setFooter({ text: `Page ${i + 1} of ${embeds.length}` })
+            .setFooter({text:`Page ${i+1} of ${embeds.length}`})
         }
         //Creates array of 2 buttons for paginating embeds[], one to go back to the previous embed and another to hit the next one
         const buttons = [

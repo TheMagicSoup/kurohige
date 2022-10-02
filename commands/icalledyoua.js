@@ -2,6 +2,7 @@
 module.exports={
 	name: "icalledyoua",
 	description: "basic argument practice",
+	aliases: ["icya","argstest"],
 	command_usage: "Takes one argument, any noun```\nb!icalledyou a <anything> \n```",
 	run: (client, message, args) => {
 		//If there's no argument provided, return
@@ -10,7 +11,7 @@ module.exports={
 			return;
 		}
 		//Stores provided argument converted to uppercase in word
-		word=args[0].toUpperCase();
+		word=args.join(" ").toUpperCase();
 		//Returns response to argument
 		message.channel.send(`YOU CALLED ME A WHAT? A ${word}??? I'LL KILL YOU!`).catch(console.error);
 	}
