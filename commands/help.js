@@ -21,7 +21,7 @@ module.exports = {
 		* Creates array for:
 		* embeds,
 		* field values (so I can do .addFields(fieldVal) instead of making a new object),
-		* and usages (I can't store them in the fieldVals array because it's not an accepted property for .addFields())
+		* and usages (I can't store them in the fieldVals array because it's not an accepted property for .addFields()
 		*/
 		let embeds=[];
 		let usages=[];
@@ -59,7 +59,7 @@ module.exports = {
 			embeds[0]
 				//Sets title to the command's name
 				.setTitle("Description")
-				//Sets to this specific Samurai Champloo image, considering making a new property for each element storing different image links for when this embed is returned
+				//Sets to this specific Samurai Champloo image
 				.setImage("https://images3.alphacoders.com/667/thumb-1920-667142.jpg")
 				//Makes 2 fields for the embed, one storing the name and description of the export & another for storing the usage
 				.addFields(
