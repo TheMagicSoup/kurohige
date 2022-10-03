@@ -7,12 +7,12 @@ Commands include:
 - A message of the day command that can be updated via Discord chat
 - A magic eightball command
 - A tags system
+<br>
 
-&nbsp;
 And a majority of it's commands are dedicated to webscraping for images like:
 - Super Smash Bros. Ultimate character renders
 - King of Fighters XV character renders
-- Anime & manga chapters, episodes & wiki entries
+- One Piece manga chapters, anime episodes & wiki entries
 - YouTube thumbnails
 
 &nbsp;
