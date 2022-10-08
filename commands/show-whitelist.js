@@ -11,8 +11,7 @@ module.exports = {
     command_usage: "```\nb!show-whitelist\n```",
     run: async (client, message, args) => {
         //Defining goldiesList, embeds & const entriesInEmb
-        var goldiesList = [];
-        var embeds = [];
+        var goldiesList, embeds=[];
         const entriesInEmb = 10;
         try {
             //Storing contents of whitelist.json in jsonString as a string

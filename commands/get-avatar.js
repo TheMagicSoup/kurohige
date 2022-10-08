@@ -9,7 +9,6 @@ module.exports = {
 	run: (client, message, args)=>{
 		/*
 		* Stores targed user in user, if there's no user mentioned
-		* it gets user from first argument, if there's no user in the arguments,
 		* it gets the message author
 		 */
 		let user = message.mentions.users.first() || client.users.cache.get(args[0]) || message.author;

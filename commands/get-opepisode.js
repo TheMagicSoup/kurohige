@@ -2,6 +2,7 @@
 const embedInit=require("./modules/embedInit.js");
 const isGoodLink=require("./modules/isGoodLink.js");
 const isDigit=require("./modules/isDigit.js");
+const getOParcImg=require("./modules/getOParcImg.js");
 //Defining module properties
 module.exports={
     name: "get-opepisode",
@@ -27,10 +28,10 @@ module.exports={
         }
         //Stores 9anime episode URL in link
         const link=`https://9anime.pl/watch/one_piece.ov8/ep-${arg}`;
-        //Edits preset embed, adding a title, default image and a text link to the episode
+        //Edits preset embed, adding a title, image and a text link to the episode
         const embed=embedInit()
             .setTitle(`Watch One Peak episode ${arg} NOW!`)
-            .setImage("https://www.barnesandnoble.com/blog/wp-content/uploads/2017/07/onepiece43-45-1.jpg")
+            .setImage(getOParcImg("e",arg))
             .addFields({name: "Episode link", value: `[CLICK HERE BITCH!](${link})`});
         //Return embed
         message.channel.send({embeds: [embed]});    

@@ -17,16 +17,16 @@ module.exports = {
 		const commands=readdirSync("./commands").filter(file=>file.endsWith(".js"));
 		//Omits "help.js" from list (I'm giving it it's own field)
 		commands.splice(commands.indexOf("help.js"),1);
-		/*
-		* Creates array for:
-		* embeds,
-		* field values (so I can do .addFields(fieldVal) instead of making a new object),
-		* and usages (I can't store them in the fieldVals array because it's not an accepted property for .addFields()
-		*/
-		let embeds=[];
-		let usages=[];
-		let alias=[];
-		let fieldVals=[];
+		/**
+		 * Creates arrays for: embeds,
+		 * fieldVals (automatically stores name, value & inline for easy declaring in addFields())
+		 * and misc. command properties (2D array of 2 arrays, one for command usages & other for aliases)
+		 */
+		let embeds, fieldVals=[];
+		let commandProperties=[
+			[],
+			[]
+		];
 		//Stores how many fields describing commands will populate each embed
 		const fieldsInEmb=6;
 		//Stores how many embeds there will be, also outputs the commands list
@@ -37,8 +37,8 @@ module.exports = {
 			let { name, description, aliases, command_usage }=require(`./${file}`);
 			let field={ name: name??"NO NAME PROVIDED", value: description??"NO DESCRIPTION PROVIDED", inline: true };
 			fieldVals.push(field);			
-			usages.push(command_usage??"NO COMMAND_USAGE PROVIDED");
-			alias.push(aliases??"NO ALIAS PROVIDED!");
+			commandProperties[0].push(command_usage??"NO COMMAND_USAGE PROVIDED");
+			commandProperties[1].push(aliases??"NO ALIAS PROVIDED!");
 		});
 		//Sets up array of embeds, initialises each embed for format I layed out in embedInit.js
 		for(let i=0;i<embArrLen;i++){
@@ -52,7 +52,7 @@ module.exports = {
 			//Fetches & stores that command's respective field value
 			const fieldVal=fieldVals[index];
 			//Fetches & stores that command's aliases
-			const aliasesVal=alias[index].join(", ");
+			const aliasesVal=commandProperties[1][index].join(", ");
 			//I want the inline to be false, as I want these fields to completely occupy their respective embeds
 			fieldVal.inline=false;
 			//Just using the first embed element as it's only returning an embed relating to that specific command
@@ -65,7 +65,7 @@ module.exports = {
 				.addFields(
 					fieldVal,
 					{name: "Aliases",value:aliasesVal},
-					{name: "Usage", value: usages[index]}
+					{name: "Usage", value: commandProperties[0][index]}
 				);
 			//Returns embed, ends process
 			message.channel.send({embeds: [embeds[0]]});

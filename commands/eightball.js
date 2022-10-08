@@ -15,7 +15,6 @@ module.exports = {
 			message.channel.send("YOU NEED TO ASK A QUESTION! (question must end with \"?\")");
 			return;
 		}
-
         //Stores response as code block text
         const response="```\n"+magicEightball()+"\n```";
         //Creates pre-set embed, adding a title and a field with the pre-defined response

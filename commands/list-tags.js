@@ -11,8 +11,7 @@ module.exports = {
     command_usage: "```\nb!list-tags\n```",
     run: async (client, message, args) => {
         //Defining tagsList, embeds & const entriesInEmb
-        var tagsList=[];
-        var embeds=[];
+        var tagsList, embeds = [];
         const entriesInEmb=10;
         try{
             //Storing contents of tags.json in jsonString

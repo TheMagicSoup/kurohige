@@ -2,6 +2,7 @@
 const embedInit=require("./modules/embedInit.js");
 const isGoodLink=require("./modules/isGoodLink.js");
 const isDigit=require("./modules/isDigit.js");
+const getOParcImg = require("./modules/getOParcImg.js");
 //Defining module properties
 module.exports = {
     name: "get-opchapter",
@@ -27,10 +28,10 @@ module.exports = {
             message.channel.send("ENTER A VALID CHAPTER NUMBER! BETWEEN 1 TO CURRENT CHAPTER NUMBER!");
             return;
         }
-        //Creates preset embed, adds title, default One Piece image and adds field with text link to manga chapter
+        //Creates preset embed, adds title, One Piece image and adds field with text link to manga chapter
         const embed = embedInit()
             .setTitle(`Read One Peak chapter ${arg} NOW!`)
-            .setImage("https://i0.wp.com/news.qoo-app.com/en/wp-content/uploads/sites/3/2022/06/one_piece_1_month_break_feature-1.jpg")
+            .setImage(getOParcImg("m",arg))
             .addFields({name: "Chapter link", value: `[CLICK HERE BITCH!](${link})`});
         //Returns embed
         message.channel.send({embeds: [embed]});
