@@ -5,7 +5,7 @@ const magicEightball = require("./modules/magicEightball.js");
 module.exports = {
     name: "eightball",
     description: "Command that gives responses to questions like a magic eightball would!",
-    aliases: ["8ball","magicball","eball","e-ball"],
+    aliases: ["8ball","magicball","eball","e-ball","8b"],
     command_usage: "Takes one argument: a question.\n```\nb!eightball <question>\n```",
     run: (client, message, args)=>{
         //Stores all arguments separated by spaces in question

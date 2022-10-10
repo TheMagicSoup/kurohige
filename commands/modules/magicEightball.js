@@ -5,6 +5,7 @@ module.exports = () => {
     /*
     * 20 different responses, chosen based on random number, returns response
     * There are 10 positive responses, 5 indefinite responses and 5 negative responses
+    * Fetched responses from Wikipedia
      */
     switch (randomNumber) {
         case 0:
