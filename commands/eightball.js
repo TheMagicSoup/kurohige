@@ -24,7 +24,6 @@ module.exports = () => {
     * There are 10 positive responses, 5 indefinite responses and 5 negative responses
     * Fetched responses from Wikipedia
      */
-    //Defines response
     const response="```\n";
     switch (randomNumber) {
         case 0:
