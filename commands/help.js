@@ -22,13 +22,12 @@ module.exports = {
 		 * fieldVals (automatically stores name, value & inline for easy declaring in addFields())
 		 * and misc. command properties (2D array of 2 arrays, one for command usages & other for aliases)
 		 */
-		let embeds, fieldVals=[];
-		let commandProperties=[
+		let embeds=[], fieldVals=[],commandProperties=[
 			[],
 			[]
 		];
 		//Stores how many fields describing commands will populate each embed
-		const fieldsInEmb=6;
+		const fieldsInEmb=9;
 		//Stores how many embeds there will be, also outputs the commands list
 		const embArrLen=Math.ceil(commands.length/fieldsInEmb);
 		console.log(commands);
@@ -80,7 +79,6 @@ module.exports = {
 			let embed=embeds[i];
 			//Initialises each embed, adds default image & description
 			embed
-			.setImage("https://wallpapercave.com/wp/wp2226861.jpg")
 			.setDescription("Command to show other commands, do `b!help <commandname>` to get more info on each");
 			/**Sets field-defining for-loop to change like the following:
 			 *	i=0, jDef=0, jCond=j<6
