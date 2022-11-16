@@ -14,8 +14,3 @@ And a majority of it's commands are dedicated to webscraping for images like:
 - King of Fighters XV character renders
 - One Piece manga chapters, anime episodes & wiki entries
 - YouTube thumbnails
-
-&nbsp;
-<b>More coming soon...</b>
-
-![BLACKBEARD JOLLY ROGER](https://static.wikia.nocookie.net/onepiece/images/b/b4/Blackbeard_Pirates%27_Jolly_Roger.png)
