@@ -3,7 +3,9 @@ const {
 	GatewayIntentBits,
 	Collection
 	} = require("discord.js");
-	
+
+require("dotenv").config();
+
 const client = new Client({
     intents: [
 		GatewayIntentBits.Guilds,
@@ -15,8 +17,6 @@ const client = new Client({
 
 const fs = require("fs");
 
-const config=require("./config.json");
-client.config=config;
 client.commands=new Collection();
 
 const events = fs.readdirSync("./events").filter(file=>file.endsWith(".js"));
@@ -36,4 +36,4 @@ client.on("ready", () => {
   console.log("BOT HAS STARTED! ZEHAHAHAHA");
 });
 
-client.login(config.token);
+client.login();

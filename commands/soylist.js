@@ -1,5 +1,4 @@
 const { readFileSync, writeFile } = require("fs");
-const owner=require("../config.json").ownerID;
 const issoylisted=require("./modules/issoylisted.js");
 module.exports={
     name: "soylist",
@@ -7,7 +6,7 @@ module.exports={
     aliases: ["sl","u-soylist","soylist-u"],
     command_usage: "Takes 2 arguments, the action (0=remove, 1=add) and the user (@mention).\n```\nb!soylist <0/1> <@user>\n```",
     run: (client, message, args) => {
-        if(message.author.id!==owner)return;
+        if(message.author.id!==process.env.OWNER)return;
         let action=args[0];
         let user=message.mentions.users.first() || client.users.cache.get(args[1]);
         if((action!=0&&action!=1)||!user){

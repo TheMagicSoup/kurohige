@@ -1,5 +1,3 @@
-//Imports
-const owner=require("../config.json").ownerID;
 //Defining module properties
 module.exports = {
 	name: "zaki",
@@ -8,9 +6,9 @@ module.exports = {
 	command_usage: "```\nb!zaki\n```",
 	run: (client, message, args)=>{
 		//If I didn't make this command, return
-		if(message.author.id!==owner)return;
+		if(message.author.id!==process.env.OWNER)return;
 		//Returns the TRUTH!!
-		message.channel.send("ZAKI IS THE GOAAAAT!");
+		message.channel.send("ZAKI IS THE GOAAAAT");
 		message.channel.send("https://c.tenor.com/uYj55Ld1tikAAAAd/the-goat-black-guy.gif");
 		return;
 	}
