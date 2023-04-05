@@ -1,5 +1,5 @@
 const { readFileSync, writeFile } = require("fs");
-const issoylisted=require("./modules/issoylisted.js");
+const issoylisted=require("./modules/isSoylisted.js");
 module.exports={
     name: "soylist",
     description: "Command that manipulates the soylist for certain things",
