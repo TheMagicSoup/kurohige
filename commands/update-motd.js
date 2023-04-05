@@ -11,6 +11,10 @@ module.exports={
         console.log(isWhitelisted(message.author.id));
         //Stores arguments separated by spaces in arg
         let arg=args.join(" ");
+		if(!arg){
+			message.channel.send("SUPPLY A MESSAGE!");
+			return;
+		}
         //If there's an @mention in arg, return
         if(arg.match(/^<@!?(\d+)>$/)){
             message.channel.send("YOU CAN'T @MENTION USERS IN YOUR MOTD!");
@@ -31,11 +35,7 @@ module.exports={
         if(!isWhitelisted(message.author.id)){
             message.channel.send("YOU CAN'T CHANGE ANYTHING! YOU'RE NOT WHITELISTED!");
             return;
-        } else if(!arg){
-        //If no new message of the day is provided, return
-            message.channel.send("YOU NEED TO SUPPLY A NEW MESSAGE!");
-            return;
-        } else {
+        }
         //Otherwise, store argument as data's motd property
             data.motd=arg;
             //Stringify data with pretty print, copy contents of data into motd.json
@@ -47,6 +47,6 @@ module.exports={
             //Returns that the motd has been set
             message.channel.send("Successfully changed the MotD to:\n```\n"+data.motd+"\n```");
             return;
-        }
+        
     }
 }

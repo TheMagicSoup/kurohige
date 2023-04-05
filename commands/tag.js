@@ -4,7 +4,7 @@ const { readFileSync } = require("fs");
 module.exports = {
     name: "tag",
     description: "Posts tagged message",
-    aliases: ["post_tag"],
+    aliases: ["post_tag","t"],
     command_usage: "Takes one argument, a tag\n```\nb!tag <tag name>\n```",
     run: (client, message, args) => {
         //If no argument is provided, return

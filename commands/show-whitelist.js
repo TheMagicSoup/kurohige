@@ -6,12 +6,12 @@ const embedInit = require("./modules/embedInit.js");
 //Defining module properties
 module.exports = {
     name: "show-whitelist",
-    description: "Posts all the currently stored tags",
-    aliases: ["show-wl"],
+    description: "Posts all whitelisted members",
+    aliases: ["show-wl","showwl"],
     command_usage: "```\nb!show-whitelist\n```",
     run: async (client, message, args) => {
         //Defining goldiesList, embeds & const entriesInEmb
-        var goldiesList, embeds=[];
+        var goldiesList=[],embeds=[];
         const entriesInEmb = 10;
         try {
             //Storing contents of whitelist.json in jsonString as a string
