@@ -13,6 +13,7 @@ module.exports={
             message.channel.send("INVALID ARGUMENTS!\nREFERENCE `b!help soylist` TO SEE HOW TO USE THIS COMMAND");
             return;
         }
+		if a
         let data;
         try{
             const jsonString=readFileSync("./commands/json_files/soylist.json","utf-8");
