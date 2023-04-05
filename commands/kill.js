@@ -4,6 +4,6 @@ module.exports = {
     aliases: ["killemall"],
     command_usage: "```\nb!kill\n```",
 	run: (client, message, args) => {
-		process.exit;
+		process.exit();
 	}
 }
